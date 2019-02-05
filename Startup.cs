@@ -28,14 +28,7 @@ namespace lin2db_column_mapping
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            MappingSchema.Default.EntityDescriptorCreatedCallback = (schema, entityDescriptor) =>
-            {
-                entityDescriptor.TableName = entityDescriptor.TableName.ToLower();
-                foreach (var entityDescriptorColumn in entityDescriptor.Columns)
-                {
-                    entityDescriptorColumn.ColumnName = entityDescriptorColumn.ColumnName.ToLower();
-                }
-            };
+            
             DataConnection.DefaultSettings = new CustomConnectionStrings(Configuration);
             services.AddTransient<DbContext>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
